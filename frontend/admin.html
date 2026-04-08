@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="admin.html">Admin</a>
+  <a href="login.html">Login</a>
+</nav>
+
+<div class="container">
+  <h2>Admin Panel</h2>
+  <div id="data"></div>
+</div>
+
+<script>
+async function loadData() {
+  const res = await fetch("http://localhost:5000/api/messages");
+  const data = await res.json();
+
+  let output = "";
+  data.forEach(item => {
+    output += `<p>${item.name} - ${item.email} - ${item.message}</p>`;
+  });
+
+  document.getElementById("data").innerHTML = output;
+}
+
+loadData();
+</script>
+
+</body>
+</html>

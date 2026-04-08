@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="admin.html">Admin</a>
+  <a href="login.html">Login</a>
+</nav>
+
+<div class="container">
+  <h2>Contact Us</h2>
+  <form id="contactForm" novalidate>
+    <input type="text" name="name" placeholder="Name" id="name" required>
+    <input type="email" name="email" placeholder="Email" id="email" required>
+    <textarea name="message" id="message" placeholder="Message"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="formMessage" class="form-message"></div>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formMessage = document.getElementById("formMessage");
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!name || !email) {
+    formMessage.textContent = "Please enter both name and email.";
+    formMessage.style.color = "#b00020";
+    return;
+  }
+  if (!emailPattern.test(email)) {
+    formMessage.textContent = "Please enter a valid email address.";
+    formMessage.style.color = "#b00020";
+    return;
+  }
+
+  const data = { name, email, message };
+
+  await fetch("http://localhost:5000/api/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  formMessage.textContent = "Message Sent!";
+  formMessage.style.color = "#2e7d32";
+  document.getElementById("contactForm").reset();
+});
+</script>
+
+</body>
+</html>

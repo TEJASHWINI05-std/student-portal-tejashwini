@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="admin.html">Admin</a>
+  <a href="login.html">Login</a>
+</nav>
+
+<div class="container">
+  <h2>Login</h2>
+  <form onsubmit="return validate()">
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<script>
+function validate() {
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  if(user === "admin" && pass === "1234") {
+    alert("Login successful");
+    window.location.href = "admin.html";
+    return false;
+  } else {
+    alert("Invalid credentials");
+    return false;
+  }
+}
+</script>
+
+</body>
+</html>
